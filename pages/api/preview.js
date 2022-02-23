@@ -16,23 +16,20 @@ export default async (req, res) => {
 		return res.status(401).end(`${validationResp.message}`)
 	}
 
-
 	let previewUrl = req.query.slug;
 
-
-	if (req.query.lang && req.query.lang.toLowerCase() !== i18n.defaultLocale) {
-		//prepend the language code onto the slug
-		//if it's NOT the default language
-		previewUrl = `/${req.query.lang}${req.query.slug}`;
-	}
-
-
-	//TODO: these kinds of dynamic links should work by default (even outside of preview)
+	//these kinds of dynamic links should work by default (even outside of preview)
 	if (req.query.ContentID) {
 		const dynamicPath = await getDynamicPageURL({ contentID: req.query.ContentID, preview: true, slug: req.query.slug });
 		if (dynamicPath) {
 			previewUrl = dynamicPath;
 		}
+	}
+
+	if (req.query.lang && req.query.lang.toLowerCase() !== i18n.defaultLocale) {
+		//prepend the language code onto the slug
+		//if it's NOT the default language
+		previewUrl = `/${req.query.lang}${previewUrl}`;
 	}
 
 	//enable preview mode
