@@ -1,5 +1,5 @@
 import { getPageTemplate } from "components/agility-pageTemplates";
-import { handlePreview } from "@agility/nextjs";
+import { handlePreview } from "../../util/handle-preview"
 import { useRouter } from "next/router";
 import Error from "next/error";
 import PreviewBar from "./PreviewBar";
